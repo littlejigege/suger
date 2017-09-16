@@ -1,7 +1,6 @@
-package com.qg.musicmaven.permission
+package com.mobile.utils
 
 import android.app.Activity
-import android.support.v7.app.AppCompatActivity
 
 /**
  * Created by jimji on 2017/9/12.

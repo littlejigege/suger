@@ -1,4 +1,4 @@
-package com.qg.musicmaven.permission
+package com.mobile.utils
 
 import android.Manifest
 import android.app.Activity

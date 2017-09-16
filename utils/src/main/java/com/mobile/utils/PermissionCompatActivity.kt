@@ -1,8 +1,6 @@
 package com.mobile.utils
 
-import android.app.Activity
 import android.support.v7.app.AppCompatActivity
-import com.qg.musicmaven.permission.PermissionMan
 
 /**
  * Created by jimji on 2017/9/12.
