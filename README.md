@@ -22,7 +22,7 @@ allprojects {
 > Add the dependency
 ```groovy
 dependencies {
-	        compile 'com.github.littlejigege:suger:v0.0.1'
+	        compile 'com.github.littlejigege:suger:v0.0.2'
 	}
 ```
 ## Step 3
