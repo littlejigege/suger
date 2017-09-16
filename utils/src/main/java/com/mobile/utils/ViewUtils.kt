@@ -82,19 +82,22 @@ fun View.onClick(timeout: Long, action: () -> Unit) {
     }
 }
 
-fun ViewPropertyAnimator.afterDone(todo: () -> Unit) {
+fun ViewPropertyAnimator.afterDone(todo: () -> Unit): ViewPropertyAnimator {
     setListener(object : Animator.AnimatorListener {
         override fun onAnimationRepeat(p0: Animator?) {
         }
+
         override fun onAnimationEnd(p0: Animator) {
             todo()
         }
+
         override fun onAnimationCancel(p0: Animator?) {
         }
 
         override fun onAnimationStart(p0: Animator?) {
         }
     })
+    return this
 }
 
 val EditText.value: String
@@ -104,8 +107,10 @@ fun EditText.onTextChange(todo: (String) -> Unit) {
     addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
         }
+
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
+
         override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
             todo(p0.toString())
         }
