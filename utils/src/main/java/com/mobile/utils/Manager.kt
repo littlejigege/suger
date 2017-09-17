@@ -1,6 +1,7 @@
 package com.mobile.utils
 
 import android.app.AlarmManager
+import android.app.DownloadManager
 import android.app.NotificationManager
 import android.appwidget.AppWidgetManager
 import android.bluetooth.BluetoothManager
@@ -53,3 +54,6 @@ inline val audioManager
 inline val batteryManager
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     get() = app.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+
+inline val downloadManager
+    get() = app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
