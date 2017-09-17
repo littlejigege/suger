@@ -11,4 +11,5 @@ fun String.downloadTo(file: File) {
     val request = DownloadManager.Request(Uri.parse(this))
     request.setDestinationUri(Uri.parse("file://${file.absolutePath}"))
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+    downloadManager.enqueue(request)
 }
