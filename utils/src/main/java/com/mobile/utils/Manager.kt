@@ -13,6 +13,7 @@ import android.os.BatteryManager
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.telephony.TelephonyManager
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import com.mobile.utils.Utils.Companion.app
 
@@ -21,6 +22,9 @@ import com.mobile.utils.Utils.Companion.app
  */
 inline val connectivityManager: ConnectivityManager
     get() = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+inline val windowManager: WindowManager
+    get() = app.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
 inline val alarmManager: AlarmManager
     get() = app.getSystemService(Context.ALARM_SERVICE) as AlarmManager

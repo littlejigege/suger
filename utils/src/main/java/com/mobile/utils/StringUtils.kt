@@ -45,6 +45,7 @@ fun String.toSBC(): String {
 }
 
 fun String.md5(): String = encrypt(this, "MD5")
+
 fun String.sha1() = encrypt(this, "SHA-1")
 
 
@@ -75,16 +76,25 @@ private fun bytes2Hex(bts: ByteArray): String {
     return des
 }
 
+fun String.delete(regex: String): String = replace(regex, "")
+
+fun String.delete(startIndex: Int, endIndex: Int) = replaceRange(IntRange(startIndex, endIndex), "")
+
 val String.isEmail: Boolean
     get() = matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$".toRegex())
+
 val String.isNumber: Boolean
     get() = matches("^[0-9]+\$".toRegex())
+
 val String.isPhone: Boolean
     get() = matches("^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,1,3,5-8])|(18[0-9])|(147))\\d{8}$".toRegex())
+
 val String.isIdCard: Boolean
     get() = matches("^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$".toRegex()) && matches("^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9Xx])$".toRegex())
+
 val String.isChinese: Boolean
     get() = matches("^[\\u4e00-\\u9fa5]+$".toRegex())
+
 val String.isEnglish: Boolean
     get() = matches("[a-zA-Z]".toRegex())
 

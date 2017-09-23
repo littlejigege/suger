@@ -174,10 +174,9 @@ fun getNetworkType(): NetworkType {
     val info = getActiveNetworkInfo()
     if (info != null && info.isAvailable) {
 
-        if (info.type == ConnectivityManager.TYPE_WIFI) {
-            netType = NetworkType.NETWORK_WIFI
-        } else if (info.type == ConnectivityManager.TYPE_MOBILE) {
-            when (info.subtype) {
+        when {
+            info.type == ConnectivityManager.TYPE_WIFI -> netType = NetworkType.NETWORK_WIFI
+            info.type == ConnectivityManager.TYPE_MOBILE -> when (info.subtype) {
 
                 NETWORK_TYPE_GSM, TelephonyManager.NETWORK_TYPE_GPRS, TelephonyManager.NETWORK_TYPE_CDMA, TelephonyManager.NETWORK_TYPE_EDGE, TelephonyManager.NETWORK_TYPE_1xRTT, TelephonyManager.NETWORK_TYPE_IDEN -> netType = NetworkType.NETWORK_2G
 
@@ -187,17 +186,16 @@ fun getNetworkType(): NetworkType {
                 else -> {
 
                     val subtypeName = info.subtypeName
-                    if (subtypeName.equals("TD-SCDMA", ignoreCase = true)
+                    netType = if (subtypeName.equals("TD-SCDMA", ignoreCase = true)
                             || subtypeName.equals("WCDMA", ignoreCase = true)
                             || subtypeName.equals("CDMA2000", ignoreCase = true)) {
-                        netType = NetworkType.NETWORK_3G
+                        NetworkType.NETWORK_3G
                     } else {
-                        netType = NetworkType.NETWORK_UNKNOWN
+                        NetworkType.NETWORK_UNKNOWN
                     }
                 }
             }
-        } else {
-            netType = NetworkType.NETWORK_UNKNOWN
+            else -> netType = NetworkType.NETWORK_UNKNOWN
         }
     }
     return netType
