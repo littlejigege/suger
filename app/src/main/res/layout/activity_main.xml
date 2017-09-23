@@ -4,9 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     android:clipChildren="false"
-    tools:context="com.qgmobile.suger.MainActivity"
-    android:background="@color/colorAccent">
+    tools:context="com.qgmobile.suger.MainActivity">
 
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="257dp"
+        tools:layout_editor_absoluteY="518dp" />
 
 </android.support.constraint.ConstraintLayout>
