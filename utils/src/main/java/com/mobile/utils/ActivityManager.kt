@@ -7,6 +7,7 @@ import kotlin.reflect.KClass
  * Created by jimji on 2017/9/16.
  */
 object ActivityManager {
+    private var time: Long = 0
     private val actList = mutableListOf<Activity>()
 
     @Synchronized
@@ -26,6 +27,15 @@ object ActivityManager {
     fun killAll() {
         actList.forEach { it.finish() }
         actList.clear()
+    }
+
+    fun doubleExit(delay: Long = 2000, title: String = "再按一次退出") {
+        if (System.currentTimeMillis() - time > delay) {
+            time = System.currentTimeMillis()
+            title.toast()
+        } else {
+            killAll()
+        }
     }
 
 }

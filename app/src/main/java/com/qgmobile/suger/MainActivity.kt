@@ -33,4 +33,8 @@ class MainActivity : AppCompatActivity() {
         list.adapter = adapter
 
     }
+
+    override fun onBackPressed() {
+        ActivityManager.doubleExit()
+    }
 }
