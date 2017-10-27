@@ -36,6 +36,7 @@ dependencies {
     compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.18'
     implementation 'com.google.code.gson:gson:2.8.2'
     compile 'com.android.support:design:26.1.0'
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.19.2"
 }
 repositories {
     mavenCentral()

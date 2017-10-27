@@ -69,18 +69,8 @@ fun View.toggle() {
 }
 
 //timeout时间内只有一次有效，解决重复点击问题
-fun View.onClick(timeout: Long, action: () -> Unit) {
-    val realAction: suspend () -> Unit = {
-        action()
-        delay(timeout)
-    }
-    val eventActor = actor<Unit>(CommonPool) {
-        for (event in channel) realAction()
-    }
-    setOnClickListener {
-        eventActor.offer(Unit)
-    }
-}
+fun View.onClick(timeout: Long, action: suspend () -> Unit) = setOnClickListener { newActorWithDelay<Unit>(timeout) { action() } }
+
 
 fun ViewPropertyAnimator.afterDone(todo: () -> Unit): ViewPropertyAnimator {
     setListener(object : Animator.AnimatorListener {

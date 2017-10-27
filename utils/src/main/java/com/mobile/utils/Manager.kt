@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetManager
 import android.bluetooth.BluetoothManager
 import android.content.ClipboardManager
 import android.content.Context
+import android.hardware.SensorManager
 import android.media.AudioManager
 import android.net.ConnectivityManager
 import android.os.BatteryManager
@@ -61,3 +62,6 @@ inline val batteryManager
 
 inline val downloadManager
     get() = app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+inline val sensorManager
+    get() = app.getSystemService(Context.SENSOR_SERVICE) as SensorManager

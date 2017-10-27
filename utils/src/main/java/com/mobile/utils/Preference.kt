@@ -25,59 +25,43 @@ object Preference {
         val ap = AnyPairs()
         ap.pairsToSave()
         val map = ap.map
-        val edit = getEdit(name)
-        map.forEach { entry ->
-            when (entry.value) {
-                is String -> {
-                    edit.putString(entry.key, entry.value as String)
-                }
-                is Int -> {
-                    edit.putInt(entry.key, entry.value as Int)
-                }
-                is Long -> {
-                    edit.putLong(entry.key, entry.value as Long)
-                }
-                is Float -> {
-                    edit.putFloat(entry.key, entry.value as Float)
-                }
-                is Boolean -> {
-                    edit.putBoolean(entry.key, entry.value as Boolean)
-                }
-                else -> {
-                    val byteOS = ByteArrayOutputStream()
-                    val objOS = ObjectOutputStream(byteOS)
-                    objOS.writeObject(entry.value)
-                    edit.putString(entry.key, Base64.encodeToString(byteOS.toByteArray(), 1))
+        with(getEdit(name)) {
+            map.forEach { entry ->
+                when (entry.value) {
+                    is String -> putString(entry.key, entry.value as String)
+                    is Int -> putInt(entry.key, entry.value as Int)
+                    is Long -> putLong(entry.key, entry.value as Long)
+                    is Float -> putFloat(entry.key, entry.value as Float)
+                    is Boolean -> putBoolean(entry.key, entry.value as Boolean)
+                    else -> {
+                        val byteOS = ByteArrayOutputStream()
+                        val objOS = ObjectOutputStream(byteOS)
+                        objOS.writeObject(entry.value)
+                        putString(entry.key, Base64.encodeToString(byteOS.toByteArray(), 1))
+                    }
                 }
             }
+            apply()
         }
-        edit.apply()
+
     }
 
     fun get(name: String, keyAndDefault: Pair<String, Any>): Any {
-        val preference = getPreference(name)
         var result = Any()
-        when (keyAndDefault.second) {
-            is String -> {
-                result = preference.getString(keyAndDefault.first, keyAndDefault.second as String)
-            }
-            is Int -> {
-                result = preference.getInt(keyAndDefault.first, keyAndDefault.second as Int)
-            }
-            is Long -> {
-                result = preference.getLong(keyAndDefault.first, keyAndDefault.second as Long)
-            }
-            is Float -> {
-                result = preference.getFloat(keyAndDefault.first, keyAndDefault.second as Float)
-            }
-            is Boolean -> {
-                result = preference.getBoolean(keyAndDefault.first, keyAndDefault.second as Boolean)
-            }
-            else -> {
-                val objIS = ObjectInputStream(ByteArrayInputStream(Base64.decode(preference.getString(keyAndDefault.first, ""), 1)))
-                result = objIS.readObject()
+        with(getPreference(name)){
+            result = when (keyAndDefault.second) {
+                is String -> getString(keyAndDefault.first, keyAndDefault.second as String)
+                is Int -> getInt(keyAndDefault.first, keyAndDefault.second as Int)
+                is Long -> getLong(keyAndDefault.first, keyAndDefault.second as Long)
+                is Float -> getFloat(keyAndDefault.first, keyAndDefault.second as Float)
+                is Boolean -> getBoolean(keyAndDefault.first, keyAndDefault.second as Boolean)
+                else -> {
+                    val objIS = ObjectInputStream(ByteArrayInputStream(Base64.decode(getString(keyAndDefault.first, ""), 1)))
+                    objIS.readObject()
+                }
             }
         }
+
         return result
     }
 

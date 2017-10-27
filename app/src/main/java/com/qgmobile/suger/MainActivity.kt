@@ -1,5 +1,6 @@
 package com.qgmobile.suger
 
+import android.hardware.*
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -8,6 +9,9 @@ import com.mobile.utils.*
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item.view.*
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.run
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         adapter.addData(listOf("wdsda", 1, 3, "6345"))
         list.layoutManager = LinearLayoutManager(this)
         list.adapter = adapter
-
     }
 
     override fun onBackPressed() {
