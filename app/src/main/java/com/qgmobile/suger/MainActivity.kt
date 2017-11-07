@@ -39,9 +39,10 @@ class MainActivity : AppCompatActivity() {
             onBindData { data, holder -> holder.itemView.textView.text = data.toString() }
             onClick { data, pos -> showToast("$pos  $data") }
         })
-        adapter.addData(listOf("wdsda", 1, 3, "6345"))
+        adapter.addData(listOf("wdsda", 1, 3, "6345",12,3,4,5,6,7,7,8,8,98))
         list.layoutManager = LinearLayoutManager(this)
         list.adapter = adapter
+        list.setOnLoadMoreListener { adapter.addData(listOf("wdsda", 1, 3, "6345",12,3,4,5,6,7,7,8,8,98)) }
 
     }
 

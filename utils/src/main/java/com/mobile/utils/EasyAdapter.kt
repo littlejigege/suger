@@ -53,6 +53,9 @@ class EasyAdapter() : RecyclerView.Adapter<EasyAdapter.ViewHolder>() {
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
+        if (holder.adapterPosition == -1) {
+            return
+        }
         val data = mDatas[holder.adapterPosition]
         mItemConfigs.map {
             if (it.value.dataClass == data::class) {
