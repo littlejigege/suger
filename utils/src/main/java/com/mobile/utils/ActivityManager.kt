@@ -29,11 +29,15 @@ object ActivityManager {
         actList.clear()
     }
 
-    fun doubleExit(delay: Long = 2000, title: String = "再按一次退出") {
+    /**
+     * action为在结束所有活动前要做的事
+     */
+    fun doubleExit(delay: Long = 2000, title: String = "再按一次退出", action: () -> Unit = {}) {
         if (System.currentTimeMillis() - time > delay) {
             time = System.currentTimeMillis()
             title.toast()
         } else {
+            action()
             killAll()
         }
     }

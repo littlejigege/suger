@@ -1,16 +1,18 @@
 package com.mobile.utils
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
 
 /**
  * Created by jimji on 2017/9/23.
  */
-class EasyAdapter : RecyclerView.Adapter<EasyAdapter.ViewHolder>() {
+class EasyAdapter() : RecyclerView.Adapter<EasyAdapter.ViewHolder>() {
     companion object {
         val HEADER = Int.MAX_VALUE - 1
         val FOOTER = Int.MAX_VALUE - 2
@@ -114,8 +116,13 @@ class EasyAdapter : RecyclerView.Adapter<EasyAdapter.ViewHolder>() {
         lateinit var tmp: Any
     }
 
-    open class ItemConfig(val dataClass: KClass<*>, val type: Int, setup: ItemConfig.() -> Unit) {
+    open class ItemConfig(val ctx: Context, val dataClass: KClass<*>, setup: ItemConfig.() -> Unit) {
+        companion object {
+            val typeCount: AtomicInteger = AtomicInteger(0)
+        }
+
         var layId: Int = 0
+        val type by lazy { typeCount.getAndIncrement() }
         var _bindData: (data: Any, holder: RecyclerView.ViewHolder) -> Unit = { _, _ -> }
         var _onClick: (data: Any, pos: Int) -> Unit = { _, _ -> }
         var _onRecycle: (Any, ViewHolder) -> Unit = { _, _ -> }
