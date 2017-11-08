@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 /**
  * Created by 铖哥 on 2017/11/8.
  */
-class AlbumPickerActivity : AppCompatActivity(){
+open class AlbumPickerActivity : AppCompatActivity(){
 
     var albumPicker : AlbumPicker?  = null
 
