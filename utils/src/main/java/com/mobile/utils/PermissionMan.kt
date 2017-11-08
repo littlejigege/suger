@@ -41,16 +41,17 @@ class PermissionMan(private var ctx: Activity) {
     fun use(use: PermissionMan.() -> Unit) = this.use()
 
 
-    private fun String.check(): Boolean {
+    fun String.check(): Boolean {
         return ContextCompat.checkSelfPermission(ctx, this) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun String.get() {
+    fun String.get() {
         if (!check()) {
             permissionGetting = this
             ActivityCompat.requestPermissions(ctx, arrayOf(this), 1)
+        } else {
+            _passed()
         }
-        _passed()
     }
 
     private val String.name: String
@@ -82,14 +83,14 @@ class PermissionMan(private var ctx: Activity) {
     fun doAfterGet(permission: String, todo: () -> Unit) {
         if (permission.check()) {
             todo()
-        } else{
+        } else {
             this.todo = todo
             permission.get()
         }
     }
 
 
-     fun getAppDetailSettingIntent() {
+    fun getAppDetailSettingIntent() {
         val intent = Intent()
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         if (Build.VERSION.SDK_INT >= 9) {

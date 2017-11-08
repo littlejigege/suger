@@ -1,5 +1,6 @@
 package com.mobile.utils
 
+import android.os.Environment
 import java.io.*
 
 /**
@@ -110,4 +111,16 @@ fun File.smartDelete(): Boolean {
         }
     }
     return delete()
+
+
 }
+
+fun getRootPath(): File {
+    return if (isSDCardEnable()) {
+        Environment.getExternalStorageDirectory()
+    } else {
+        Environment.getDataDirectory()
+    }
+}
+
+fun isSDCardEnable() = Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()

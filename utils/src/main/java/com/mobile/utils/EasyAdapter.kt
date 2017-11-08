@@ -1,6 +1,8 @@
 package com.mobile.utils
 
 import android.content.Context
+import android.support.annotation.LayoutRes
+import android.support.annotation.UiThread
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -124,6 +126,7 @@ class EasyAdapter() : RecyclerView.Adapter<EasyAdapter.ViewHolder>() {
             val typeCount: AtomicInteger = AtomicInteger(0)
         }
 
+        @LayoutRes
         var layId: Int = 0
         val type by lazy { typeCount.getAndIncrement() }
         var _bindData: (data: Any, holder: RecyclerView.ViewHolder) -> Unit = { _, _ -> }
