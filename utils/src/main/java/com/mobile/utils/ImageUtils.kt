@@ -68,7 +68,7 @@ fun Bitmap.compressByQuality(maxByteSize: Long): Bitmap? {
     return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 }
 
-fun Bitmap.gaussBlud(blurRadius:Float): Bitmap {
+fun Bitmap.gaussBlud(blurRadius : Float = 20f ): Bitmap {
 
     val BITMAP_SCALE = 0.4f
     val width = Math.round(this.getWidth() * BITMAP_SCALE)

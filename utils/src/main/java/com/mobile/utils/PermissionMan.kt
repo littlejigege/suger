@@ -38,7 +38,7 @@ class PermissionMan(private var ctx: Activity) {
     val CALENDER = Manifest.permission.READ_CALENDAR
 
 
-    fun use(use: PermissionMan.() -> Unit) = this.use()
+    fun use(use: PermissionMan.() -> Unit) = use()
 
 
     fun String.check(): Boolean {
