@@ -69,7 +69,7 @@ fun View.toggle() {
 }
 
 //timeout时间内只有一次有效，解决重复点击问题
-fun View.onClick(timeout: Long, action: suspend () -> Unit) = setOnClickListener { newActorWithDelay<Unit>(timeout) { action() } }
+fun View.onClick(timeout: Long, action: suspend () -> Unit) = setOnClickListener { newActorWithDelay<Unit>(timeout) { action() }.offer(Unit) }
 
 
 fun ViewPropertyAnimator.afterDone(todo: () -> Unit): ViewPropertyAnimator {

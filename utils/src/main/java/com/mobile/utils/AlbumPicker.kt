@@ -8,6 +8,7 @@ import android.annotation.TargetApi
 import android.net.Uri
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
+import com.mobile.utils.permission.Permission
 
 
 /**
@@ -15,7 +16,7 @@ import android.support.v7.app.AppCompatActivity
  */
 
 
-class AlbumPicker private constructor(private var act:AlbumPickerActivity) {
+class AlbumPicker private constructor(private var act: AlbumPickerActivity) {
 
     private val ALBUM_PICKER = 999
     lateinit private var handler: (String?) -> Unit
@@ -29,22 +30,18 @@ class AlbumPicker private constructor(private var act:AlbumPickerActivity) {
     }
 
 
-
     fun selectedPicAndHandle(handler: (String?) -> Unit) {
-        PermissionMan(act).use {
-            onPassed {
+
+        Permission.STORAGE.get(act) { isPassed ->
+            if (isPassed) {
                 val intent = Intent("android.intent.action.GET_CONTENT")
                 intent.type = ("image/*")
                 act.startActivityForResult(intent, ALBUM_PICKER)
                 this@AlbumPicker.handler = handler
-            }
-            onDinied {
+            } else {
                 showToast("permssion denied")
             }
-            STORAGE.get()
         }
-
-
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

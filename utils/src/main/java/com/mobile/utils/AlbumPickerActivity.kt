@@ -2,6 +2,7 @@ package com.mobile.utils
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
+import com.mobile.utils.permission.PermissionCompatActivity
 
 /**
  * Created by 铖哥 on 2017/11/8.

@@ -19,7 +19,7 @@ fun <T> coroutine(block: suspend CoroutineScope.() -> T, uiBlock: suspend (T) ->
 }
 
 //延时执行UI代码块,返回构造出来的JOB，可用于取消
-fun doAfter(delay: Long, repeat: Int = 1, todo: () -> Unit) = launch(UI) { (0..repeat).map { delay(delay);todo() } }
+fun doAfter(delay: Long, repeat: Int = 1, todo: () -> Unit) = launch(UI) { (1..repeat).map { delay(delay);todo() } }
 
 
 /**
