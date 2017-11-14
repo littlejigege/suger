@@ -26,6 +26,7 @@ class MainActivity : AlbumPickerActivity() {
             datas.add(User((('A'+i)).toString(),i))
         }
 
+
         var old = mutableListOf<User>();
 
         var t = 9;
