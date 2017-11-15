@@ -7,8 +7,8 @@ import java.io.File
 /**
  * Created by jimji on 2017/9/17.
  */
-fun String.downloadTo(file: File) {
-    val request = DownloadManager.Request(Uri.parse(this))
+fun systemDownload(url: String, file: File) {
+    val request = DownloadManager.Request(Uri.parse(url))
     request.setDestinationUri(Uri.parse("file://${file.absolutePath}"))
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
     downloadManager.enqueue(request)
