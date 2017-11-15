@@ -53,7 +53,6 @@ class User(  val name : String,
                val mid : Int){
 
 }
-
 class MyAdapter(val datas : MutableList<User>) : AutoNotifyAdapter<User,MyAdapter.MyHolder>(datas) {
 
     override fun onBindViewHolder(holder: MyHolder?, position: Int) {
