@@ -1,3 +1,4 @@
+@file:JvmName("ImageUtils")
 package com.mobile.utils
 
 import android.graphics.*
@@ -54,28 +55,18 @@ fun Bitmap.scale(newWidth: Int, newHeight: Int): Bitmap {
     return ret
 }
 
-fun Bitmap.compressByQuality(maxByteSize: Long): Bitmap? {
-    if (maxByteSize <= 0) return null
-    val baos = ByteArrayOutputStream()
-    var quality = 100
-    compress(Bitmap.CompressFormat.JPEG, quality, baos)
-    while (baos.toByteArray().size > maxByteSize && quality > 0) {
-        baos.reset()
-        compress(Bitmap.CompressFormat.JPEG, { quality -= 5;quality }(), baos)
-    }
-    if (quality < 0) return null
-    val bytes = baos.toByteArray()
-    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-}
 
-fun Bitmap.gaussBlud(blurRadius : Float = 20f ): Bitmap {
+fun Bitmap.size() = rowBytes * byteCount
+
+
+fun gaussBlud(bitmap: Bitmap,blurRadius : Float = 20f ): Bitmap {
 
     val BITMAP_SCALE = 0.4f
-    val width = Math.round(this.getWidth() * BITMAP_SCALE)
-    val height = Math.round(this.getHeight() * BITMAP_SCALE)
+    val width = Math.round(bitmap.getWidth() * BITMAP_SCALE)
+    val height = Math.round(bitmap.getHeight() * BITMAP_SCALE)
 
     // 将缩小后的图片做为预渲染的图片
-    val inputBitmap = Bitmap.createScaledBitmap(this, width, height, false)
+    val inputBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false)
     // 创建一张渲染后的输出图片
     val outputBitmap = Bitmap.createBitmap(inputBitmap)
 
@@ -101,4 +92,19 @@ fun Bitmap.gaussBlud(blurRadius : Float = 20f ): Bitmap {
 
     return outputBitmap
 }
+
+fun compressByQuality(bitmap: Bitmap,maxByteSize: Long): Bitmap? {
+    if (maxByteSize <= 0) return null
+    val baos = ByteArrayOutputStream()
+    var quality = 100
+    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos)
+    while (bitmap.size() > maxByteSize && quality > 0) {
+        baos.reset()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, { quality -= 5;quality }(), baos)
+    }
+    if (quality < 0) return null
+    val bytes = baos.toByteArray()
+    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+}
+
 
