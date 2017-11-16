@@ -1,5 +1,6 @@
 package com.qgmobile.suger
 
+import android.app.Notification
 import android.os.*
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
@@ -10,10 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.google.gson.Gson
 import com.mobile.utils.*
+import com.mobile.utils.downloader.Downloader
 import com.mobile.utils.permission.Permission
 import com.mobile.utils.permission.PermissionCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.*
+import java.io.File
+import java.io.IOException
 
 
 class MainActivity : AlbumPickerActivity() {
@@ -21,28 +27,20 @@ class MainActivity : AlbumPickerActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var datas : MutableList<User> = mutableListOf()
-        for(i in 1..8){
-            datas.add(User((('A'+i)).toString(),i))
-        }
+
+        Thread.setDefaultUncaughtExceptionHandler { t, e -> e.printStackTrace() }
 
 
-        var old = mutableListOf<User>();
+        Downloader.build {
+            client = OkHttpClient()
+            maxPieces = 30
 
-        var t = 9;
-        val adapter = MyAdapter(datas)
-        recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(this)
-
-        button.setOnClickListener {
-            datas.add(User("E"+t++.toString(),t))
-            adapter.easyNotify { user, user2 -> user.mid == user2.mid }
-        }
-
-        button2.setOnClickListener{
-            datas.removeAt((Math.random()*datas.size).toInt())
-            adapter.easyNotify{user, u2 -> user.mid == u2.mid}
-        }
+        }.download("http://192.168.0.112:8080/photo/CloudMusic.zip","CloudMusic.zip")
+//        val msg =     Downloader.DownloadMessage("ABC",123456,55, mutableListOf(),21312);
+//       val json = Gson().toJson(msg);
+//        Log.e("MainActivity",json)
+//        val re = Gson().fromJson(json,Downloader.DownloadMessage::class.java)
+//        Log.e("MainActivity"," ${re.donePices == null}")
     }
 
 
@@ -53,6 +51,7 @@ class User(  val name : String,
                val mid : Int){
 
 }
+
 class MyAdapter(val datas : MutableList<User>) : AutoNotifyAdapter<User,MyAdapter.MyHolder>(datas) {
 
     override fun onBindViewHolder(holder: MyHolder?, position: Int) {

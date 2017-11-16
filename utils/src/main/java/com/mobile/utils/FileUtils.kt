@@ -73,14 +73,14 @@ private fun copyOrMoveFile(srcFile: File, destFile: File, isMove: Boolean): Bool
 
 }
 
-private fun writeFileFromIS(file: File, `is`: InputStream, append: Boolean): Boolean {
-    if (!file.toggleFile()) return false
+fun writeFileFromIS(file: File, `is`: InputStream, append: Boolean): Boolean {
+    file.toggleFile()
     var os: OutputStream? = null
     return try {
         os = BufferedOutputStream(FileOutputStream(file, append))
         val data = ByteArray(8129)
         var len: Int = 0
-        while ({ len = `is`.read(data, 0, 8129);len }() != -1) {
+        while ({ len = `is`.read(data, 0, 8129);len != -1 }()) {
             os.write(data, 0, len)
         }
         true
@@ -124,3 +124,23 @@ fun getRootPath(): File {
 }
 
 fun isSDCardEnable() = Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
+
+fun merge(output:File,  deleteAfterMerge:Boolean = true , vararg sources : File){
+
+    output.toggleFile()
+    sources.forEach {
+        writeFileFromIS(output,it.inputStream(),true)
+    }
+
+    if(deleteAfterMerge)
+    for(file in sources){
+        file.delete()
+    }
+}
+
+fun readAll(path: String):String{
+    val file = File(path)
+    val br = file.readBytes()
+    return String(br)
+
+}
