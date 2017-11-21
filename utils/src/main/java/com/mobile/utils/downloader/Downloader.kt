@@ -21,6 +21,8 @@ import kotlin.properties.Delegates
 /**
  * Created by steve on 17-11-15.
  */
+
+@Deprecated("this is just a shit . not recommand")
 class Downloader private constructor(builder: Builder) : Handler() {
 
 
@@ -223,7 +225,6 @@ class Downloader private constructor(builder: Builder) : Handler() {
 
         var client: OkHttpClient = OkHttpClient()
         var pieceSize = 1024 * 1024 * 20
-        var maxPieces =  3
         var fileDir = Environment.getExternalStorageDirectory().path + "/download/test"
 
         init {

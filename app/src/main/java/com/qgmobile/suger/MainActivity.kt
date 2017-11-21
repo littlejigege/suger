@@ -27,57 +27,42 @@ class MainActivity : AlbumPickerActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val user = User("ASD",123)
 
-        Thread.setDefaultUncaughtExceptionHandler { t, e -> e.printStackTrace() }
-
-
-        Downloader.build {
-            client = OkHttpClient()
-            maxPieces = 30
-
-        }.download("http://192.168.0.112:8080/photo/CloudMusic.zip","CloudMusic.zip")
-//        val msg =     Downloader.DownloadMessage("ABC",123456,55, mutableListOf(),21312);
-//       val json = Gson().toJson(msg);
-//        Log.e("MainActivity",json)
-//        val re = Gson().fromJson(json,Downloader.DownloadMessage::class.java)
-//        Log.e("MainActivity"," ${re.donePices == null}")
     }
-
 
 
 }
 
-class User(  val name : String,
-               val mid : Int){
+class User(val name: String,
+           val mid: Int) : Parcelable {
 
-}
-
-class MyAdapter(val datas : MutableList<User>) : AutoNotifyAdapter<User,MyAdapter.MyHolder>(datas) {
-
-    override fun onBindViewHolder(holder: MyHolder?, position: Int) {
-        holder?.tv?.text = datas[position].name
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readInt()) {
     }
 
-
-    override fun getItemCount() = datas.size
-
-
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyHolder{
-        val view =  LayoutInflater.from(parent!!.context).inflate(R.layout.item,parent,false)
-        val holder = MyHolder(view)
-        return holder
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeInt(mid)
     }
 
-    class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        lateinit var tv : TextView
+    override fun describeContents(): Int {
+        return 0
+    }
 
-        init {
-            tv = itemView.findViewById<TextView>(R.id.tv)
+    companion object CREATOR : Parcelable.Creator<User> {
+        override fun createFromParcel(parcel: Parcel): User {
+            return User(parcel)
         }
 
-
+        override fun newArray(size: Int): Array<User?> {
+            return arrayOfNulls(size)
+        }
     }
 
+
 }
+
 
 
