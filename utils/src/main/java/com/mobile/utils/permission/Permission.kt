@@ -35,7 +35,7 @@ enum class Permission(val value: String) {
         checkActivityAndQueue(activity, task)
     }
 
-    fun doAfterGet(activity: PermissionCompatActivity, action: () -> Unit) {
+    fun doAfterGet(activity: Activity, action: () -> Unit) {
         val task = PermissionTask(this, object : PermissionGetCallBack {
             override fun onPassed() {
                 action()
