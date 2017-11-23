@@ -2,12 +2,16 @@
 package com.mobile.utils
 
 import android.graphics.*
+import android.graphics.drawable.Drawable
 import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 import java.io.ByteArrayOutputStream
 import android.view.View
+import android.graphics.Bitmap
+import android.graphics.PixelFormat
+import android.graphics.drawable.BitmapDrawable
 
 
 /**
@@ -62,8 +66,8 @@ fun Bitmap.size() = rowBytes * byteCount
 fun gaussBlud(bitmap: Bitmap,blurRadius : Float = 20f ): Bitmap {
 
     val BITMAP_SCALE = 0.4f
-    val width = Math.round(bitmap.getWidth() * BITMAP_SCALE)
-    val height = Math.round(bitmap.getHeight() * BITMAP_SCALE)
+    val width = Math.round(bitmap.width * BITMAP_SCALE)
+    val height = Math.round(bitmap.height * BITMAP_SCALE)
 
     // 将缩小后的图片做为预渲染的图片
     val inputBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false)
@@ -77,7 +81,7 @@ fun gaussBlud(bitmap: Bitmap,blurRadius : Float = 20f ): Bitmap {
 
     // 由于RenderScript并没有使用VM来分配内存,所以需要使用Allocation类来创建和分配内存空间
     // 创建Allocation对象的时候其实内存是空的,需要使用copyTo()将数据填充进去
-    val tmpIn = Allocation.createFromBitmap(rs, inputBitmap);
+    val tmpIn = Allocation.createFromBitmap(rs, inputBitmap)
     val tmpOut = Allocation.createFromBitmap(rs, outputBitmap)
 
     // 设置渲染的模糊程度, 25f是最大模糊度
@@ -106,5 +110,22 @@ fun compressByQuality(bitmap: Bitmap,maxByteSize: Long): Bitmap? {
     val bytes = baos.toByteArray()
     return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 }
+
+fun Drawable.toBitmap(): Bitmap? {
+    val bitmap = Bitmap.createBitmap(
+            this.intrinsicWidth,
+            this.intrinsicHeight,
+            if (this.opacity != PixelFormat.OPAQUE)
+                Bitmap.Config.ARGB_8888
+            else
+                Bitmap.Config.RGB_565)
+    val canvas = Canvas(bitmap)
+    //canvas.setBitmap(bitmap);
+    this.setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
+    this.draw(canvas)
+    return bitmap
+}
+
+fun Bitmap.toDrawable()= BitmapDrawable(Utils.app.resources,this)
 
 
