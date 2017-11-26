@@ -1,4 +1,4 @@
-package com.mobile.utils.fileModifyHelper
+package com.mobile.utils
 
 import android.os.FileObserver
 import java.io.File
@@ -13,11 +13,11 @@ abstract class FileObserver{
     //    var observers = mutableMapOf<String,FileObserver>()
     private var observers = mutableSetOf<FileObserver>()
 
-    fun startLoad(rootpath :String){
+    fun startObserve(rootpath :String){
 
         File(rootpath).listFiles().forEach {
             if (it.isDirectory){
-                startLoad(it.path)
+                startObserve(it.path)
             }
         }
 
@@ -42,7 +42,7 @@ abstract class FileObserver{
 //
 //                    else -> Log.e("tag",event.toString())
 //                }
-                onDirctroyChange(rootpath)
+                onDirectoryChange(rootpath)
             }
         }
 
@@ -51,5 +51,5 @@ abstract class FileObserver{
         fileObserver.startWatching()
     }
 
-    abstract fun onDirctroyChange(rootpath: String)
+    abstract fun onDirectoryChange(rootpath: String)
 }
