@@ -32,6 +32,16 @@ fun File.copyTo(path: String): Boolean {
     }
 }
 
+fun File.directoryFileCount() : Int {
+    var count = 0
+
+    if(this.isFile || !this.exists()) return count;
+
+    val underFile = this.listFiles()
+    underFile.forEach { if (it.isFile) count ++ }
+    return count
+}
+
 private fun copyOrMoveDir(srcDir: File, destDir: File, isMove: Boolean): Boolean {
     // srcPath : F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res
     // destPath: F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res1
