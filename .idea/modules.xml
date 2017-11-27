@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/suger.iml" filepath="$PROJECT_DIR$/.idea/suger.iml" />
       <module fileurl="file://$PROJECT_DIR$/suger.iml" filepath="$PROJECT_DIR$/suger.iml" />
+      <module fileurl="file://E:\work\Android\Apps\suger\.idea\suger.iml" filepath="E:\work\Android\Apps\suger\.idea\suger.iml" />
       <module fileurl="file://C:\Users\jige\Desktop\suger\.idea\suger.iml" filepath="C:\Users\jige\Desktop\suger\.idea\suger.iml" />
       <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
     </modules>
