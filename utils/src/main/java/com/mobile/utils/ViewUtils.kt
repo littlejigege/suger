@@ -63,7 +63,7 @@ inline fun View.goneIf(block: () -> Boolean) {
     }
 }
 
-fun View.toggle() {
+fun View.toggleVisibility() {
     visibility = if (visibility == View.GONE) View.VISIBLE
     else View.GONE
 }
