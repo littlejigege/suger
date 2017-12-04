@@ -1,9 +1,7 @@
-# suger
+# suger a super useful kotlin Utils
 
 [![](https://jitpack.io/v/littlejigege/suger.svg)](https://jitpack.io/#littlejigege/suger)
 
-
-哥哥们，有好东西都往里面放吧
 
 # Usage
 
@@ -36,3 +34,28 @@ override fun onCreate() {
     }
 
 ```
+Readme Progress
+- [x] request permission
+- [x] open local alubm
+- [x] EasyNotifyAdapter
+- [ ] ImageUtils
+- [ ] ToastUtils
+
+
+---
+### Easy way to open System Alubm and choose photo
+
+First create an activity extend AlbumPickerActivity
+
+```  
+AlbumPicker.with(this).selectedPicAndHandle { path -> 
+	print("this is the path of the photo you choose  $path")
+}
+```
+---
+
+---
+
+
+
+
