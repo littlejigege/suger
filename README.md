@@ -53,6 +53,56 @@ AlbumPicker.with(this).selectedPicAndHandle { path ->
 }
 ```
 ---
+### Easy way to deil with preference
+
+```kotlin
+		//easy to save
+        Preference.save("settings") {
+            "key" - "value"
+            "key1" - "value1"
+            //...
+        }
+        //easy to get
+        Preference.get("settings","key" to "defaultValue")
+```
+
+### Easy way to deil with permission
+
+first you need to extends PermissionActivity or PermissionCompatActivity
+
+```kotlin
+class MyActivity : PermissionActivity() {
+}
+```
+
+Permission中有所有的危险权限组
+
+下面用读写权限举例
+
+你可以获取他:
+
+```kotlin
+Permission.STORAGE.get(this){
+  //isPassed是回调，通过的话是true
+            isPassed -> if(isPassed) showToast("ok") else showToast("no")
+        }
+```
+
+你可以指定一段代码在获取某个权限后执行:
+
+```kotlin
+Permission.STORAGE.doAfterGet(this){
+  //只有权限痛过才会执行，保证安全
+            showToast("66666")
+        }
+```
+
+你也可以单独检查是否获得某个权限:
+
+```kotlin
+Permission.STORAGE.has()
+```
+
 
 ---
 
