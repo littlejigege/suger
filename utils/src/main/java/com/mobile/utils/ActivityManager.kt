@@ -26,7 +26,7 @@ object ActivityManager : Thread.UncaughtExceptionHandler {
     private var time: Long = 0
 
     init {
-        Thread.setDefaultUncaughtExceptionHandler(this)
+        //Thread.setDefaultUncaughtExceptionHandler(this)
     }
 
     interface OnCrashListener {

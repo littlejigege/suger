@@ -5,6 +5,7 @@ import android.os.*
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +27,7 @@ class MainActivity : AlbumPickerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val user = User("ASD",123)
+        val user = User("ASD", 123)
     }
 
 

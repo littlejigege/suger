@@ -13,6 +13,7 @@ import kotlin.reflect.KClass
 
 /**
  * Created by jimji on 2017/9/23.
+ * @hide
  */
 class EasyAdapter() : RecyclerView.Adapter<EasyAdapter.ViewHolder>() {
     companion object {
