@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.littlejigege'
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -45,4 +46,15 @@ dependencies {
 }
 repositories {
     mavenCentral()
+}
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
 }
