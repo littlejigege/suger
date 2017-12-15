@@ -4,6 +4,7 @@ package com.mobile.utils.permission
 import android.app.Activity
 
 import android.support.v4.app.ActivityCompat
+import com.mobile.utils.inUiThread
 
 import java.util.*
 import kotlin.concurrent.thread
@@ -21,9 +22,10 @@ class PermissionMan(private var ctx: Activity) {
             return
         }
         if (permissionGetting!!.permission.has()) {
-            permissionGetting!!.callBack.onPassed()
+            inUiThread { permissionGetting!!.callBack.onPassed() }
+
         } else {
-            permissionGetting!!.callBack.onDenied()
+            inUiThread { permissionGetting!!.callBack.onDenied() }
         }
         queue.poll()
         permissionGetting = null

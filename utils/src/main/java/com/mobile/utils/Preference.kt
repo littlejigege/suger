@@ -48,7 +48,7 @@ object Preference {
 
     fun get(name: String, keyAndDefault: Pair<String, Any>): Any {
         var result = Any()
-        with(getPreference(name)){
+        with(getPreference(name)) {
             result = when (keyAndDefault.second) {
                 is String -> getString(keyAndDefault.first, keyAndDefault.second as String)
                 is Int -> getInt(keyAndDefault.first, keyAndDefault.second as Int)
@@ -56,8 +56,12 @@ object Preference {
                 is Float -> getFloat(keyAndDefault.first, keyAndDefault.second as Float)
                 is Boolean -> getBoolean(keyAndDefault.first, keyAndDefault.second as Boolean)
                 else -> {
-                    val objIS = ObjectInputStream(ByteArrayInputStream(Base64.decode(getString(keyAndDefault.first, ""), 1)))
-                    objIS.readObject()
+                    if (getString(keyAndDefault.first, "").isNotEmpty()) {
+                        val objIS = ObjectInputStream(ByteArrayInputStream(Base64.decode(getString(keyAndDefault.first, ""), 1)))
+                        objIS.readObject()
+                    } else {
+                        keyAndDefault.second
+                    }
                 }
             }
         }
