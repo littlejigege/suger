@@ -22,10 +22,10 @@ class PermissionMan(private var ctx: Activity) {
             return
         }
         if (permissionGetting!!.permission.has()) {
-            inUiThread { permissionGetting!!.callBack.onPassed() }
+             permissionGetting!!.callBack.onPassed()
 
         } else {
-            inUiThread { permissionGetting!!.callBack.onDenied() }
+             permissionGetting!!.callBack.onDenied()
         }
         queue.poll()
         permissionGetting = null
