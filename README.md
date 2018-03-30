@@ -47,9 +47,13 @@ Readme Progress
 
 First create an activity extend AlbumPickerActivity
 
-```  
+```  
+//获取权限
+Permission.STORAGE.doAfterGet(this){
+//选择照片
 AlbumPicker.with(this).selectedPicAndHandle { path -> 
 	print("this is the path of the photo you choose  $path")
+        }
 }
 ```
 ---
