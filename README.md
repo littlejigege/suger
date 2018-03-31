@@ -20,8 +20,11 @@ allprojects {
 > Add the dependency
 ```groovy
 dependencies {
-	        compile 'com.github.littlejigege:suger:v0.0.7'
+	        compile 'com.github.littlejigege:suger:v0.0.8.5'
+		
+//用到库中的JsonWrapper才要拉
 		implementation 'com.google.code.gson:gson:2.8.2'
+//用到库中的协程才要		
 		compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.19.2"
 	}
 ```
@@ -47,9 +50,13 @@ Readme Progress
 
 First create an activity extend AlbumPickerActivity
 
-```  
+```  
+//获取权限
+Permission.STORAGE.doAfterGet(this){
+//选择照片
 AlbumPicker.with(this).selectedPicAndHandle { path -> 
 	print("this is the path of the photo you choose  $path")
+        }
 }
 ```
 ---
