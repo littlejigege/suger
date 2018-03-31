@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 //apply plugin: 'com.github.dcendents.android-maven'
 //group='com.github.littlejigege'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
 
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -28,50 +28,22 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     testImplementation 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.mockito:mockito-core:2.8.47'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.19.3'
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20'
     implementation 'com.google.code.gson:gson:2.8.2'
-    compile 'com.android.support:design:26.1.0'
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.19.3"
+    compile 'com.android.support:design:27.1.0'
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.20"
 
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'com.squareup.okio:okio:1.13.0'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.squareup.okio:okio:1.14.0'
 
 }
 repositories {
     mavenCentral()
 }
-//// 指定编码
-//tasks.withType(JavaCompile) {
-//    options.encoding = "UTF-8"
-//}
-//
-//// 打包源码
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-//
-//task javadoc(type: Javadoc) {
-//    failOnError  false
-//    source = android.sourceSets.main.java.sourceFiles
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//    classpath += configurations.compile
-//}
-//
-//// 制作文档(Javadoc)
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//
-//artifacts {
-//    archives sourcesJar
-//    archives javadocJar
-//}
