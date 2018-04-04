@@ -16,11 +16,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.gson.Gson
 import com.mobile.utils.*
+import com.mobile.utils.JsonMaker.Companion.array
 import com.mobile.utils.downloader.Downloader
 import com.mobile.utils.permission.Permission
 import com.mobile.utils.permission.PermissionCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
+import org.json.JSONArray
+import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 
@@ -29,6 +32,8 @@ class MainActivity : AlbumPickerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
     }
 
 

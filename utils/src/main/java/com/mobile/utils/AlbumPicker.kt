@@ -26,7 +26,10 @@ class AlbumPicker private constructor(private var act: AlbumPickerActivity) {
             val obj = AlbumPicker(act)
             act.albumPicker = obj
             return obj
+
+
         }
+
     }
 
 
