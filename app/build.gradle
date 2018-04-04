@@ -37,3 +37,9 @@ dependencies {
     compile project(':utils')
 
 }
+//去掉实验api的warning
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
