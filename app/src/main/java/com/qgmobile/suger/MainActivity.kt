@@ -8,7 +8,12 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
 
 
-class MainActivity : AlbumPickerActivity() {
+class MainActivity : AlbumPickerActivity(), NetworkObserver.NetCallback {
+    override fun onChange(last: NetworkType, now: NetworkType) {
+        showToast("$last  $now")
+    }
+
+    val a = NetworkObserver().apply { this.addListener(this@MainActivity) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,7 +28,6 @@ class MainActivity : AlbumPickerActivity() {
         button2.setOnTouchListener { _, _ -> println("777777");false }
         button2.setOnClickListener { a.close() }
     }
-
 
 }
 

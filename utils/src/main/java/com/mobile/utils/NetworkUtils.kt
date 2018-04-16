@@ -1,11 +1,15 @@
 package com.mobile.utils
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkInfo
 import android.net.wifi.WifiManager
+import android.os.Build
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.util.Log
@@ -115,9 +119,6 @@ fun getDataEnabled(): Boolean {
 }
 
 
-
-
-
 /**
  * 判断wifi是否打开
  *
@@ -132,9 +133,6 @@ fun getWifiEnabled(): Boolean {
 }
 
 
-
-
-
 ///**
 // * 判断wifi数据是否可用
 // *
@@ -147,7 +145,6 @@ fun getWifiEnabled(): Boolean {
 //fun isWifiAvailable(): Boolean {
 //    return getWifiEnabled() && isAvailableByPing()
 //}
-
 
 
 private val NETWORK_TYPE_GSM = 16
@@ -199,4 +196,37 @@ fun getNetworkType(): NetworkType {
         }
     }
     return netType
+}
+
+class NetworkObserver {
+    //监听change事件回调
+    interface NetCallback {
+        fun onChange(last: NetworkType, now: NetworkType)
+    }
+
+    private val ls = mutableSetOf<NetCallback>()
+    //上一次的网络状态
+    private var last = NetworkType.NETWORK_UNKNOWN
+    private val receiver by lazy {
+        NetWorkChangeReceiver().apply {
+            app.registerReceiver(this, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        }
+    }
+
+    fun addListener(callback: NetCallback) {
+        ls.add(callback)
+        receiver
+    }
+
+    fun removeListener(callback: NetCallback) {
+        ls.remove(callback)
+    }
+
+    inner class NetWorkChangeReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val now = getNetworkType()
+            ls.forEach { it.onChange(last, now) }
+            last = now
+        }
+    }
 }
