@@ -1,6 +1,5 @@
 package com.qgmobile.suger
 
-import com.mobile.utils.MJsonMaker
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -16,11 +15,5 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricGradleTestRunner::class)
 @Config(constants = BuildConfig::class,sdk = intArrayOf(19))
 class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        MJsonMaker.make {
-            "a"-"b"
-            "c"-{"d"-"e"}
-        }
-    }
+
 }
