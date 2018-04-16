@@ -2,6 +2,8 @@ package com.mobile.utils
 
 import android.os.Environment
 import java.io.*
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 /**
  * Created by jimji on 2017/9/16.
@@ -152,5 +154,5 @@ fun readAll(path: String):String{
     val file = File(path)
     val br = file.readBytes()
     return String(br)
-
 }
+

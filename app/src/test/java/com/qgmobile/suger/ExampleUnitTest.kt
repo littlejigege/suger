@@ -1,5 +1,6 @@
 package com.qgmobile.suger
 
+import com.mobile.utils.MJsonMaker
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -17,6 +18,9 @@ import org.robolectric.annotation.Config
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        MJsonMaker.make {
+            "a"-"b"
+            "c"-{"d"-"e"}
+        }
     }
 }
